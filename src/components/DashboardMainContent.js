@@ -6,26 +6,26 @@ const DashboardMainContent = () => {
     {
       title: "Your Retailers",
       number: "500",
-      icon: <i class="fa-solid fa-user-group" />
+      icon: <i className="fa-solid fa-user-group" />
     },
     {
       title: "Zone",
       number: "Zone Name",
-      icon: <i class="fa-solid fa-user-group" />
+      icon: <i className="fa-solid fa-user-group" />
     },
     {
       title: "Custodian",
       number: "Name",
-      icon: <i class="fa-solid fa-user" />
+      icon: <i className="fa-solid fa-user" />
     },
     {
       title: "Total Ticket Sale %",
       number: "%25",
-      icon: <i class="fa-solid fa-chart-line" />
+      icon: <i className="fa-solid fa-chart-line" />
     }
   ];
   return (
-    <div className="main-wrapper">
+    <div id="dashboard-main-content">
       <p>hello</p>
       <div className="dashboard-cards-wrapper">
         {cards.map((ele, i) => {

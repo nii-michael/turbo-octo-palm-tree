@@ -171,5 +171,74 @@ nav li {
   align-items: center;
 }
 
+.dashboard-nav-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  gap: 20px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
 
+.w-100 {
+  width: 100%;
+}
 
+.dashboard-nav {
+  height: 100vh;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  border-right: 1px solid #ececec;
+  /* position: fixed; */
+}
+
+.dashboard-main {
+  background: #fbfbfb;
+}
+
+.dashboard-nav img {
+  width: 60px;
+  height: 60px;
+}
+
+.dashboard-nav nav {
+  margin-top: 40px;
+  width: 60%;
+  margin-right: auto;
+}
+
+.dashboard-nav nav ul {
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-nav-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  gap: 20px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav li {
+  list-style: none;
+  padding: 0 10px;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #121212;
+}
