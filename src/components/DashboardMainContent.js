@@ -26,7 +26,6 @@ const DashboardMainContent = () => {
   ];
   return (
     <div id="dashboard-main-content">
-      <p>hello</p>
       <div className="dashboard-cards-wrapper">
         {cards.map((ele, i) => {
           return <Card key={i} title={ele.title} number={ele.number} icon={ele.icon} />;
