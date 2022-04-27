@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAccountUsername, setUserEmail } from "../../redux/userSlice";
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,8 +29,13 @@ const Login = () => {
 
     axios(config)
       .then(function(response) {
-        localStorage.setItem("my_user_token", response.data.token);
-        navigate("/home");
+        console.log(response.data)
+        // localStorage.setItem("my_user_token", response.data.token);
+        // dispatch(setAccountUsername(response.data.username));
+        // dispatch(setUserEmail(response.data.email));
+        // dispatch(setAccountUsername(response.data.username));
+        // dispatch(setAccountUsername(response.data.username));
+        // navigate("/home");
       })
       .catch(function(error) {
         console.log(error);

@@ -10,13 +10,13 @@ import {
   PURGE,
   REGISTER
 } from "redux-persist";
-import getTimerReducer from "./getTimeSlice";
+import userSlice from "./userSlice";
 
 const persistConfig = {
   key: "user",
   storage
 };
-const reducers = combineReducers({ user: getTimerReducer });
+const reducers = combineReducers({ user: userSlice });
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
@@ -27,4 +27,4 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
       }
     })
-})
+});
