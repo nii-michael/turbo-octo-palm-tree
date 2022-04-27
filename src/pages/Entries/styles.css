@@ -1,0 +1,15 @@
+.accounts-wrapper {
+    padding: 40px;
+  }
+  
+  .accounts-wrapper h3 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+  
+    color: #000000;
+  }
+  
+  
