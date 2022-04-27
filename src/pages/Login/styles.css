@@ -20,7 +20,7 @@ input {
   border: 0;
 }
 
-button {
+.login-button {
   background: rgb(77, 247, 43);
   border: 0;
   width: 100%;

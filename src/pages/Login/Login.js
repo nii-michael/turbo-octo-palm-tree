@@ -48,7 +48,7 @@ const Login = () => {
           type="password"
         />
         <br />
-        <button>login</button>
+        <button className="login-button">login</button>
         <a href="/register" className="create-account">
           create an account
         </a>

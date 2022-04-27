@@ -247,3 +247,13 @@ a {
   text-decoration: none;
   color: #121212;
 }
+
+
+
+label {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 19px;
+  color: #000000;
+}
