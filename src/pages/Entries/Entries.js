@@ -431,7 +431,9 @@ const Entries = () => {
           </div>
           <div className="button-wrapper">
             <button onClick={handleClick} className="button-entries-button">
-              Submit Entries
+              {
+                
+              }
             </button>
           </div>
         </div>
