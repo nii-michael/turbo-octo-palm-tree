@@ -19,12 +19,12 @@ const DashboardNav = () => {
                 <span>Entries</span>
               </Link>
               <Link to="/dashboard/reports" className="dashboard-nav-item">
-              <i className="fa-solid fa-file"></i>
+                <i className="fa-solid fa-file" />
                 <span>Reports</span>
               </Link>
               <Link to="/" className="dashboard-nav-item">
-                <i className="fa-solid fa-power-off" />
-                <span>Logout</span>
+                <i className="fa-solid fa-power-off red" />
+                <span className="red">Logout</span>
               </Link>
             </li>
           </ul>
