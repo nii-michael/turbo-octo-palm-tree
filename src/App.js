@@ -4,8 +4,11 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Entries from "./pages/Entries/Entries";
 import Login from "./pages/Login/Login";
 import Reports from "./pages/Reports/Reports";
+import { useSelector } from "react-redux";
 
 function App() {
+  const fullName = useSelector(state => state.user.name);
+console.log(fullName)
   return (
     <BrowserRouter>
       <Routes>

@@ -1,12 +1,29 @@
 import React from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  setAccountUsername,
+  setUserEmail,
+  setUserAccessToken,
+  setRegion,
+  setFullName,
+  setUserId
+} from "../redux/userSlice";
 const DashboardNav = () => {
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(setAccountUsername(""));
+    dispatch(setUserEmail(""));
+    dispatch(setRegion(""));
+    dispatch(setFullName(""));
+    dispatch(setUserAccessToken(""));
+    dispatch(setUserId(""));
+  };
   return (
     <div className="dashboard-nav">
       <div className="fixed">
-        {/* <img src={logo} alt="syka logo" /> */}
-
         <nav>
           <ul>
             <li className="w-100">
@@ -22,7 +39,7 @@ const DashboardNav = () => {
                 <i className="fa-solid fa-file" />
                 <span>Reports</span>
               </Link>
-              <Link to="/" className="dashboard-nav-item">
+              <Link onClick={logout} to="/" className="dashboard-nav-item">
                 <i className="fa-solid fa-power-off red" />
                 <span className="red">Logout</span>
               </Link>
