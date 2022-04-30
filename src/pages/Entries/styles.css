@@ -95,9 +95,16 @@ table {
   color: white;
   padding: 15px;
   margin: auto;
+  display: flex;
+  justify-content: center;
 }
 
-.button-wrapper{
+.button-entries-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7
+}
+
+.button-wrapper {
   display: flex;
   margin-top: 50px;
 }

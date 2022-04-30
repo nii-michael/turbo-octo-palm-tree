@@ -72,7 +72,7 @@ const Entries = () => {
   };
 
   const handleClick = () => {
-    setLoading(true); 
+    setLoading(true);
 
     var data = JSON.stringify({
       week,
@@ -103,29 +103,29 @@ const Entries = () => {
       data: data
     };
 
-    axios(config)
-      .then(function(response) {
-        setWeek("");
-        setDeployed("");
-        setActive("");
-        setInactive("");
-        setTotalTickets("");
-        setAvg("");
-        setCall("");
-        setDay1("");
-        setDay2("");
-        setDay3("");
-        setDay4("");
-        setDay5("");
-        setDay6("");
-        setTotal("");
-        setCall("");
-        setVisitation("");
-        setLoading(false);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    // axios(config)
+    //   .then(function(response) {
+    //     setWeek("");
+    //     setDeployed("");
+    //     setActive("");
+    //     setInactive("");
+    //     setTotalTickets("");
+    //     setAvg("");
+    //     setCall("");
+    //     setDay1("");
+    //     setDay2("");
+    //     setDay3("");
+    //     setDay4("");
+    //     setDay5("");
+    //     setDay6("");
+    //     setTotal("");
+    //     setCall("");
+    //     setVisitation("");
+    //     setLoading(false);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
   };
   return (
     <DashboardWrapper>
@@ -430,9 +430,13 @@ const Entries = () => {
             </div>
           </div>
           <div className="button-wrapper">
-            <button onClick={handleClick} className="button-entries-button">
+            <button disabled onClick={handleClick} className="button-entries-button">
               {loading
-                ? <PulseSpinner size={30} color="#fff" loading={loading} />
+                ? <PulseSpinner
+                    size={30}
+                    color="#fff"
+                    loading={loading}
+                  />
                 : "Submit Entries"}
             </button>
           </div>
