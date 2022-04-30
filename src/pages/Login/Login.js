@@ -39,7 +39,6 @@ const Login = () => {
 
     axios(config)
       .then(function(response) {
-        console.log(response.data.user.username);
         dispatch(setAccountUsername(response.data.user.username));
         dispatch(setUserEmail(response.data.user.email));
         dispatch(setRegion(response.data.user.region));
@@ -47,6 +46,9 @@ const Login = () => {
         dispatch(setUserAccessToken(response.data.token));
         dispatch(setUserId(response.data.user.id));
         navigate("/dashboard");
+        if(response.status ===400){
+          console.log(":jje")
+        }
       })
       .catch(function(error) {
         console.log(error);
@@ -71,9 +73,6 @@ const Login = () => {
         />
         <br />
         <button className="login-button">login</button>
-        <a href="/register" className="create-account">
-          create an account
-        </a>
       </form>
     </div>
   );
