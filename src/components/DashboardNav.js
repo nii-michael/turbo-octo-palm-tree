@@ -14,15 +14,15 @@ const DashboardNav = () => {
                 <i className="fa-solid fa-earth-africa" />
                 <span>Home</span>
               </Link>
-              <Link to="/entries" className="dashboard-nav-item">
+              <Link to="/dashboard/entries" className="dashboard-nav-item">
                 <i className="fa-solid fa-pen" />
                 <span>Entries</span>
               </Link>
-              <Link to="/reports" className="dashboard-nav-item">
+              <Link to="/dashboard/reports" className="dashboard-nav-item">
               <i className="fa-solid fa-file"></i>
                 <span>Reports</span>
               </Link>
-              <Link to="/login" className="dashboard-nav-item">
+              <Link to="/" className="dashboard-nav-item">
                 <i className="fa-solid fa-power-off" />
                 <span>Logout</span>
               </Link>

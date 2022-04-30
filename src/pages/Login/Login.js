@@ -3,7 +3,11 @@ import axios from "axios";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAccountUsername, setUserEmail } from "../../redux/userSlice";
+import {
+  setAccountUsername,
+  setUserEmail,
+  setUserAcessToken
+} from "../../redux/userSlice";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,13 +33,13 @@ const Login = () => {
 
     axios(config)
       .then(function(response) {
-        console.log(response.data)
-        // localStorage.setItem("my_user_token", response.data.token);
-        // dispatch(setAccountUsername(response.data.username));
-        // dispatch(setUserEmail(response.data.email));
-        // dispatch(setAccountUsername(response.data.username));
-        // dispatch(setAccountUsername(response.data.username));
-        // navigate("/home");
+        console.log(response.data);
+        dispatch(setAccountUsername(response.data.user.username));
+        // dispatch(setUserEmail(response.data.user.email));
+        // dispatch(setAccountUsername(response.data.user.username));
+        // dispatch(setAccountUsername(response.data.user.username));
+        dispatch(setUserAcessToken(response.data.token));
+        navigate("/dashboard");
       })
       .catch(function(error) {
         console.log(error);

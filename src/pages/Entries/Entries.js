@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DashboardMainWrapper from "../../components/DashboardMainWrapper";
 import DashboardWrapper from "../../components/DashboardWrapper";
+import { useSelector } from "react-redux";
 import "./styles.css";
 const Entries = () => {
   const [name, setName] = useState("");
@@ -9,6 +10,9 @@ const Entries = () => {
   const [contribution, setContribution] = useState("");
   const [people, setPeople] = useState([]);
   const [disabled, setDisabled] = useState(true);
+
+  const { accountName } = useSelector(state => state.user.name);
+  console.log(accountName);
   useEffect(
     () => {
       if (people.length >= 10) {
