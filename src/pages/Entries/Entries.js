@@ -72,7 +72,7 @@ const Entries = () => {
   };
 
   const handleClick = () => {
-    setLoading(true);
+    setLoading(true); 
 
     var data = JSON.stringify({
       week,
@@ -431,9 +431,9 @@ const Entries = () => {
           </div>
           <div className="button-wrapper">
             <button onClick={handleClick} className="button-entries-button">
-              {
-                
-              }
+              {loading
+                ? <PulseSpinner size={30} color="#fff" loading={loading} />
+                : "Submit Entries"}
             </button>
           </div>
         </div>
