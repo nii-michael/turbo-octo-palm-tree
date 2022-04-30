@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import DashboardMainWrapper from "../../components/DashboardMainWrapper";
 import DashboardWrapper from "../../components/DashboardWrapper";
 import { useSelector } from "react-redux";
+import { PulseSpinner } from "react-spinners-kit";
+
 import "./styles.css";
 import axios from "axios";
 const Entries = () => {
@@ -26,6 +28,7 @@ const Entries = () => {
   const [day5, setDay5] = useState("");
   const [day6, setDay6] = useState("");
   const [total, setTotal] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fullName = useSelector(state => state.user.name);
   const region = useSelector(state => state.user.region);
@@ -69,6 +72,8 @@ const Entries = () => {
   };
 
   const handleClick = () => {
+    setLoading(true);
+
     var data = JSON.stringify({
       week,
       deployed,
@@ -87,7 +92,6 @@ const Entries = () => {
       total,
       retailers: people
     });
-    console.log(data);
 
     var config = {
       method: "post",
@@ -117,6 +121,7 @@ const Entries = () => {
         setTotal("");
         setCall("");
         setVisitation("");
+        setLoading(false);
       })
       .catch(function(error) {
         console.log(error);
