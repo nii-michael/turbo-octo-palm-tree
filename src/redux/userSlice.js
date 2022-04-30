@@ -4,14 +4,15 @@ const initialState = {
   username: "",
   region: "",
   name: "",
-  accces_token: ""
+  access_token: "",
+  userId: ""
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setName: (state, action) => {
+    setFullName: (state, action) => {
       state.name = action.payload;
     },
     setRegion: (state, action) => {
@@ -20,22 +21,26 @@ export const userSlice = createSlice({
     setUserEmail: (state, action) => {
       state.email = action.payload;
     },
-    setUserAcessToken: (state, action) => {
-      state.accces_token = action.payload;
+    setUserAccessToken: (state, action) => {
+      state.access_token = action.payload;
     },
     setAccountUsername: (state, action) => {
       state.username = action.payload;
+    },
+    setUserId: (state, action) => {
+      state.userId = action.payload;
     }
   }
 });
 
 // Action creators are generated for each case reducer function
 export const {
-  setName,
+  setFullName,
   setRegion,
   setUserEmail,
-  setUserAcessToken,
-  setAccountUsername
+  setUserAccessToken,
+  setAccountUsername,
+  setUserId
 } = userSlice.actions;
 
 export default userSlice.reducer;

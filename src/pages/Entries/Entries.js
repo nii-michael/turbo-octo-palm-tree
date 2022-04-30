@@ -11,10 +11,26 @@ const Entries = () => {
   const [contribution, setContribution] = useState("");
   const [people, setPeople] = useState([]);
   const [disabled, setDisabled] = useState(true);
+  const [week, setWeek] = useState("");
+  const [deployed, setDeployed] = useState("");
+  const [active, setActive] = useState("");
+  const [inactive, setInactive] = useState("");
+  const [totalTickets, setTotalTickets] = useState("");
+  const [avg, setAvg] = useState("");
+  const [call, setCall] = useState("");
+  const [visitation, setVisitation] = useState("");
+  const [day1, setDay1] = useState("");
+  const [day2, setDay2] = useState("");
+  const [day3, setDay3] = useState("");
+  const [day4, setDay4] = useState("");
+  const [day5, setDay5] = useState("");
+  const [day6, setDay6] = useState("");
+  const [total, setTotal] = useState("");
 
   const fullName = useSelector(state => state.user.name);
   const region = useSelector(state => state.user.region);
   const token = useSelector(state => state.user.access_token);
+  const userId = useSelector(state => state.user.userId);
 
   useEffect(
     () => {
@@ -54,7 +70,7 @@ const Entries = () => {
 
   const handleClick = () => {
     var data = JSON.stringify({
-      week: "Week 17, 2022",
+      week,
       deployed,
       active,
       inactive,
@@ -69,29 +85,15 @@ const Entries = () => {
       day5,
       day6,
       total,
-      retailers: [
-        {
-          name: "User 1",
-          retailer: "RT 1",
-          amount: 5.67,
-          contribution: 25.6
-        },
-        {
-          name: "User 2",
-          retailer: "RT 2",
-          amount: 9.9,
-          contribution: 4.57
-        }
-      ]
+      retailers: people
     });
+    console.log(data);
 
     var config = {
       method: "post",
-      url: `${process.env.REACT_APP_BE}/users/login`,
-      url: "localhost:5000/details/add/6269044a632bedb9291eeb2d",
+      url: `${process.env.REACT_APP_BE}/details/add/${userId}`,
       headers: {
-        Authorization:
-        `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
       data: data
@@ -99,7 +101,22 @@ const Entries = () => {
 
     axios(config)
       .then(function(response) {
-        console.log(JSON.stringify(response.data));
+        setWeek("");
+        setDeployed("");
+        setActive("");
+        setInactive("");
+        setTotalTickets("");
+        setAvg("");
+        setCall("");
+        setDay1("");
+        setDay2("");
+        setDay3("");
+        setDay4("");
+        setDay5("");
+        setDay6("");
+        setTotal("");
+        setCall("");
+        setVisitation("");
       })
       .catch(function(error) {
         console.log(error);
@@ -135,7 +152,11 @@ const Entries = () => {
             <div className="custom-input-wrapper">
               <label htmlFor="name">Week: </label>
               <br />
-              <input type="week" />
+              <input
+                onChange={e => setWeek(e.target.value)}
+                value={week}
+                type="week"
+              />
             </div>
           </div>
           <div className="details">
@@ -148,31 +169,56 @@ const Entries = () => {
             <div className="details-line">
               <p className="detail-header"># of TPMs Deployed</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setDeployed(e.target.value)}
+                value={deployed}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header"># of Active TPMs</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setActive(e.target.value)}
+                value={active}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header"># of InActive TPMs</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setInactive(e.target.value)}
+                value={inactive}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header">TOTAL TICKET SALES</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setTotalTickets(e.target.value)}
+                value={totalTickets}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header">AVG ACTIVE TS per TPM</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setAvg(e.target.value)}
+                value={avg}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
           </div>
@@ -277,12 +323,20 @@ const Entries = () => {
             <div className="ri-line">
               <p className="detail-header">CALL</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setCall(e.target.value)}
+                className="auth-input auto"
+                type="text"
+              />
             </div>
             <div className="ri-line">
               <p className="detail-header">VISITATION</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setVisitation(e.target.value)}
+                className="auth-input auto"
+                type="text"
+              />
             </div>
           </div>
           <div className="details">
@@ -295,37 +349,78 @@ const Entries = () => {
             <div className="details-line">
               <p className="detail-header">1 30 to 59 Days</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setDay1(e.target.value)}
+                value={day1}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header">2 60 to 89 Days</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setDay2(e.target.value)}
+                value={day2}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header">3 90 to 179 Days</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setDay3(e.target.value)}
+                value={day3}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header">4 180 to 359 Days</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setDay4(e.target.value)}
+                value={day4}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header">5 360 to 719 Days</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setDay5(e.target.value)}
+                value={day5}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
             <div className="details-line">
               <p className="detail-header">6 720 and above</p>
               <input disabled className="auth-input auto" type="text" />
-              <input className="auth-input auto" type="text" />
+              <input
+                onChange={e => setDay6(e.target.value)}
+                value={day6}
+                className="auth-input auto"
+                type="text"
+              />
+              <input disabled className="auth-input auto" type="text" />
+            </div>
+            <div className="details-line">
+              <p className="detail-header">Total</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input
+                onChange={e => setTotal(e.target.value)}
+                value={total}
+                className="auth-input auto"
+                type="text"
+              />
               <input disabled className="auth-input auto" type="text" />
             </div>
           </div>

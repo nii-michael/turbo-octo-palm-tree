@@ -6,7 +6,10 @@ import { useDispatch } from "react-redux";
 import {
   setAccountUsername,
   setUserEmail,
-  setUserAcessToken
+  setUserAccessToken,
+  setRegion,
+  setFullName,
+  setUserId
 } from "../../redux/userSlice";
 const Login = () => {
   const navigate = useNavigate();
@@ -33,12 +36,13 @@ const Login = () => {
 
     axios(config)
       .then(function(response) {
-        console.log(response.data);
+        console.log(response.data.user.username);
         dispatch(setAccountUsername(response.data.user.username));
-        // dispatch(setUserEmail(response.data.user.email));
-        // dispatch(setAccountUsername(response.data.user.username));
-        // dispatch(setAccountUsername(response.data.user.username));
-        dispatch(setUserAcessToken(response.data.token));
+        dispatch(setUserEmail(response.data.user.email));
+        dispatch(setRegion(response.data.user.region));
+        dispatch(setFullName(response.data.user.name));
+        dispatch(setUserAccessToken(response.data.token));
+        dispatch(setUserId(response.data.user.id));
         navigate("/dashboard");
       })
       .catch(function(error) {

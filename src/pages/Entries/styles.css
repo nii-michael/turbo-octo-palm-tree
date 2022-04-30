@@ -59,6 +59,14 @@ table {
   gap: 20px;
 }
 
+.ri-line {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.retailer-interaction {
+  margin-bottom: 60px;
+}
 .detail-header {
   font-style: normal;
   font-weight: 700;
@@ -71,4 +79,25 @@ table {
 
 .auto {
   margin: auto;
+}
+
+.button-entries-button {
+  background: #111;
+  border: 0;
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  margin: auto;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  padding: 15px;
+  margin: auto;
+}
+
+.button-wrapper{
+  display: flex;
+  margin-top: 50px;
 }
