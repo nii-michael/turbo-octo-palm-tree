@@ -7,8 +7,7 @@ import Reports from "./pages/Reports/Reports";
 import { useSelector } from "react-redux";
 
 function App() {
-  const fullName = useSelector(state => state.user.name);
-console.log(fullName)
+  const token = useSelector(state => state.user.access_token);
   return (
     <BrowserRouter>
       <Routes>

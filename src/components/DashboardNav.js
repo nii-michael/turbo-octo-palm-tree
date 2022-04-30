@@ -14,12 +14,12 @@ const DashboardNav = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(setAccountUsername(""));
-    dispatch(setUserEmail(""));
-    dispatch(setRegion(""));
-    dispatch(setFullName(""));
-    dispatch(setUserAccessToken(""));
-    dispatch(setUserId(""));
+    dispatch(setAccountUsername(null));
+    dispatch(setUserEmail(null));
+    dispatch(setRegion(null));
+    dispatch(setFullName(null));
+    dispatch(setUserAccessToken(null));
+    dispatch(setUserId(null));
   };
   return (
     <div className="dashboard-nav">
