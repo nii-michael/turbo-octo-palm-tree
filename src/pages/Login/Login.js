@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./styles.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   setAccountUsername,
@@ -11,9 +11,12 @@ import {
   setFullName,
   setUserId
 } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useSelector(state => state.user.access_token);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -49,6 +52,9 @@ const Login = () => {
         console.log(error);
       });
   };
+  if (token) {
+    return <Navigate to="/dashboard" replace />;
+  }
   return (
     <div className="login-wrapper">
       <form onSubmit={e => handleSubmit(e)}>
