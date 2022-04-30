@@ -3,9 +3,9 @@ import DashboardMainWrapper from "../../components/DashboardMainWrapper";
 import DashboardWrapper from "../../components/DashboardWrapper";
 import { useSelector } from "react-redux";
 import { PulseSpinner } from "react-spinners-kit";
+import axios from "axios";
 
 import "./styles.css";
-import axios from "axios";
 const Entries = () => {
   const [name, setName] = useState("");
   const [retailer, setRetailer] = useState("");
@@ -29,8 +29,11 @@ const Entries = () => {
   const [day6, setDay6] = useState("");
   const [total, setTotal] = useState("");
   const [loading, setLoading] = useState(false);
+  const [prevWeek, setPrevWeek] = useState([]);
+  const [newData, setNewData] = useState(false);
 
   const fullName = useSelector(state => state.user.name);
+  const username = useSelector(state => state.user.username);
   const region = useSelector(state => state.user.region);
   const token = useSelector(state => state.user.access_token);
   const userId = useSelector(state => state.user.userId);
@@ -57,7 +60,6 @@ const Entries = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log("Ee");
     setPeople([
       ...people,
       {
@@ -102,31 +104,54 @@ const Entries = () => {
       },
       data: data
     };
-
-    // axios(config)
-    //   .then(function(response) {
-    //     setWeek("");
-    //     setDeployed("");
-    //     setActive("");
-    //     setInactive("");
-    //     setTotalTickets("");
-    //     setAvg("");
-    //     setCall("");
-    //     setDay1("");
-    //     setDay2("");
-    //     setDay3("");
-    //     setDay4("");
-    //     setDay5("");
-    //     setDay6("");
-    //     setTotal("");
-    //     setCall("");
-    //     setVisitation("");
-    //     setLoading(false);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
+    axios(config)
+      .then(function(response) {
+        setWeek("");
+        setDeployed("");
+        setActive("");
+        setInactive("");
+        setTotalTickets("");
+        setAvg("");
+        setDay1("");
+        setDay2("");
+        setDay3("");
+        setDay4("");
+        setDay5("");
+        setDay6("");
+        setTotal("");
+        setCall("");
+        setVisitation("");
+        setPeople([])
+        setLoading(false);
+        setNewData(true);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
+
+  useEffect(
+    () => {
+      var config = {
+        method: "get",
+        url: `${process.env.REACT_APP_BE}/details/${username}/user/prev`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+
+      axios(config)
+        .then(function(response) {
+          console.log(response.data);
+          setPrevWeek(response.data);
+          setNewData(false)
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    [newData]
+  );
   return (
     <DashboardWrapper>
       <DashboardMainWrapper name="Entries">
@@ -173,7 +198,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header"># of TPMs Deployed</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.deployed}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setDeployed(e.target.value)}
                 value={deployed}
@@ -184,7 +214,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header"># of Active TPMs</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.active}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setActive(e.target.value)}
                 value={active}
@@ -195,7 +230,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header"># of InActive TPMs</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.inactive}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setInactive(e.target.value)}
                 value={inactive}
@@ -206,7 +246,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">TOTAL TICKET SALES</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.totalTickets}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setTotalTickets(e.target.value)}
                 value={totalTickets}
@@ -217,7 +262,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">AVG ACTIVE TS per TPM</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.avg?.$numberDecimal}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setAvg(e.target.value)}
                 value={avg}
@@ -327,8 +377,14 @@ const Entries = () => {
             </div>
             <div className="ri-line">
               <p className="detail-header">CALL</p>
-              <input disabled className="auth-input auto" type="text" />
               <input
+                defaultValue={prevWeek?.call}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
+              <input
+                value={call}
                 onChange={e => setCall(e.target.value)}
                 className="auth-input auto"
                 type="text"
@@ -336,8 +392,14 @@ const Entries = () => {
             </div>
             <div className="ri-line">
               <p className="detail-header">VISITATION</p>
-              <input disabled className="auth-input auto" type="text" />
               <input
+                defaultValue={prevWeek?.visitation}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
+              <input
+                value={visitation}
                 onChange={e => setVisitation(e.target.value)}
                 className="auth-input auto"
                 type="text"
@@ -353,7 +415,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">1 30 to 59 Days</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.day1}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setDay1(e.target.value)}
                 value={day1}
@@ -364,7 +431,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">2 60 to 89 Days</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.day2}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setDay2(e.target.value)}
                 value={day2}
@@ -375,7 +447,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">3 90 to 179 Days</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.day3}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setDay3(e.target.value)}
                 value={day3}
@@ -386,7 +463,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">4 180 to 359 Days</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.day4}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setDay4(e.target.value)}
                 value={day4}
@@ -397,7 +479,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">5 360 to 719 Days</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.day5}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setDay5(e.target.value)}
                 value={day5}
@@ -408,7 +495,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">6 720 and above</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.day6}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setDay6(e.target.value)}
                 value={day6}
@@ -419,7 +511,12 @@ const Entries = () => {
             </div>
             <div className="details-line">
               <p className="detail-header">Total</p>
-              <input disabled className="auth-input auto" type="text" />
+              <input
+                defaultValue={prevWeek?.total}
+                disabled
+                className="auth-input auto"
+                type="text"
+              />
               <input
                 onChange={e => setTotal(e.target.value)}
                 value={total}
@@ -430,13 +527,13 @@ const Entries = () => {
             </div>
           </div>
           <div className="button-wrapper">
-            <button disabled onClick={handleClick} className="button-entries-button">
+            <button
+              disabled= {loading}
+              onClick={handleClick}
+              className="button-entries-button"
+            >
               {loading
-                ? <PulseSpinner
-                    size={30}
-                    color="#fff"
-                    loading={loading}
-                  />
+                ? <PulseSpinner size={30} color="#fff" loading={loading} />
                 : "Submit Entries"}
             </button>
           </div>

@@ -108,3 +108,7 @@ table {
   display: flex;
   margin-top: 50px;
 }
+
+tr{
+  border: 10px solid #dededd;
+}
