@@ -3,6 +3,7 @@ import DashboardMainWrapper from "../../components/DashboardMainWrapper";
 import DashboardWrapper from "../../components/DashboardWrapper";
 import { useSelector } from "react-redux";
 import "./styles.css";
+import axios from "axios";
 const Entries = () => {
   const [name, setName] = useState("");
   const [retailer, setRetailer] = useState("");
@@ -11,8 +12,10 @@ const Entries = () => {
   const [people, setPeople] = useState([]);
   const [disabled, setDisabled] = useState(true);
 
-  const { accountName } = useSelector(state => state.user.name);
-  console.log(accountName);
+  const fullName = useSelector(state => state.user.name);
+  const region = useSelector(state => state.user.region);
+  const token = useSelector(state => state.user.access_token);
+
   useEffect(
     () => {
       if (people.length >= 10) {
@@ -48,6 +51,60 @@ const Entries = () => {
     e.target.reset();
     setDisabled(true);
   };
+
+  const handleClick = () => {
+    var data = JSON.stringify({
+      week: "Week 17, 2022",
+      deployed,
+      active,
+      inactive,
+      totalTickets,
+      avg,
+      call,
+      visitation,
+      day1,
+      day2,
+      day3,
+      day4,
+      day5,
+      day6,
+      total,
+      retailers: [
+        {
+          name: "User 1",
+          retailer: "RT 1",
+          amount: 5.67,
+          contribution: 25.6
+        },
+        {
+          name: "User 2",
+          retailer: "RT 2",
+          amount: 9.9,
+          contribution: 4.57
+        }
+      ]
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_BE}/users/login`,
+      url: "localhost:5000/details/add/6269044a632bedb9291eeb2d",
+      headers: {
+        Authorization:
+        `Bearer ${token}`
+        "Content-Type": "application/json"
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function(response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
   return (
     <DashboardWrapper>
       <DashboardMainWrapper name="Entries">
@@ -57,21 +114,12 @@ const Entries = () => {
               <div className="custom-input-wrapper">
                 <label htmlFor="name">Region: </label>
                 <br />
-                <select name="region">
-                  <option value="">Select Region/Zone</option>
-                  <option value="ga">Greater Accra Region</option>
-                  <option value="as">Ashanti Region</option>
-                  <option value="we">Western Region</option>
-                  <option value="es">Eastern Region</option>
-                  <option value="cc">Central Region</option>
-                  <option value="vt">Volta Region</option>
-                  <option value="nt">Nothern Region</option>
-                  <option value="uw">Upper West Region</option>
-                  <option value="ue">Upper East Region</option>
-                  <option value="ot">Oti Region</option>
-                  <option value="bo">Bono Region</option>
-                  <option value="ah">Ahafo Region</option>
-                </select>
+                <input
+                  className="auth-input auto"
+                  type="text"
+                  placeholder={region}
+                  disabled
+                />
               </div>
               <div className="custom-input-wrapper">
                 <label htmlFor="name">Custodian</label>
@@ -79,7 +127,8 @@ const Entries = () => {
                 <input
                   className="auth-input auto"
                   type="text"
-                  placeholder="Enter Full Name"
+                  placeholder={fullName}
+                  disabled
                 />
               </div>
             </div>
@@ -214,6 +263,76 @@ const Entries = () => {
                 </tbody>
               </table>
             </div>
+          </div>
+
+          <div className="retailer-interaction">
+            <p className="detail-header ">
+              RETAILER INTERACTION - PROVIDE RETAILER TRANSACTION
+            </p>
+            <div className="ri-line">
+              <p className="detail-header ">ACTIVITY</p>
+              <p className="detail-header center">PREVIOUS WEEK</p>
+              <p className="detail-header center">CURRENT WEEK</p>
+            </div>
+            <div className="ri-line">
+              <p className="detail-header">CALL</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input className="auth-input auto" type="text" />
+            </div>
+            <div className="ri-line">
+              <p className="detail-header">VISITATION</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input className="auth-input auto" type="text" />
+            </div>
+          </div>
+          <div className="details">
+            <div className="details-line">
+              <p className="detail-header ">#DETAILS</p>
+              <p className="detail-header center">PREVIOUS WEEK</p>
+              <p className="detail-header center">CURRENT WEEK</p>
+              <p className="detail-header center">% CHANGE</p>
+            </div>
+            <div className="details-line">
+              <p className="detail-header">1 30 to 59 Days</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input className="auth-input auto" type="text" />
+              <input disabled className="auth-input auto" type="text" />
+            </div>
+            <div className="details-line">
+              <p className="detail-header">2 60 to 89 Days</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input className="auth-input auto" type="text" />
+              <input disabled className="auth-input auto" type="text" />
+            </div>
+            <div className="details-line">
+              <p className="detail-header">3 90 to 179 Days</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input className="auth-input auto" type="text" />
+              <input disabled className="auth-input auto" type="text" />
+            </div>
+            <div className="details-line">
+              <p className="detail-header">4 180 to 359 Days</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input className="auth-input auto" type="text" />
+              <input disabled className="auth-input auto" type="text" />
+            </div>
+            <div className="details-line">
+              <p className="detail-header">5 360 to 719 Days</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input className="auth-input auto" type="text" />
+              <input disabled className="auth-input auto" type="text" />
+            </div>
+            <div className="details-line">
+              <p className="detail-header">6 720 and above</p>
+              <input disabled className="auth-input auto" type="text" />
+              <input className="auth-input auto" type="text" />
+              <input disabled className="auth-input auto" type="text" />
+            </div>
+          </div>
+          <div className="button-wrapper">
+            <button onClick={handleClick} className="button-entries-button">
+              Submit Entries
+            </button>
           </div>
         </div>
       </DashboardMainWrapper>
