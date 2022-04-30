@@ -4,17 +4,40 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Entries from "./pages/Entries/Entries";
 import Login from "./pages/Login/Login";
 import Reports from "./pages/Reports/Reports";
-import { useSelector } from "react-redux";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  const token = useSelector(state => state.user.access_token);
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Login />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route exact path="/dashboard/entries" element={<Entries />} />
-        <Route exact path="/dashboard/reports" element={<Reports />} />
+        <Route
+          exact
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/dashboard/entries"
+          element={
+            <ProtectedRoute>
+              <Entries />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/dashboard/reports"
+          element={
+            <ProtectedRoute>
+              <Reports />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
