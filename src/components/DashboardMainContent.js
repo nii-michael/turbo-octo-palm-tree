@@ -1,7 +1,10 @@
 import React from "react";
 import Card from "../components/Card";
+import { useSelector } from "react-redux";
 import "./styles.css";
 const DashboardMainContent = () => {
+  const fullName = useSelector(state => state.user.name);
+
   var cards = [
     {
       title: "Your Retailers",
@@ -15,7 +18,7 @@ const DashboardMainContent = () => {
     },
     {
       title: "Custodian",
-      number: "Name",
+      number: fullName,
       icon: <i className="fa-solid fa-user" />
     },
     {
