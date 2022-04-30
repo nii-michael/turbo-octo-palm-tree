@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DashboardMainWrapper from "../../components/DashboardMainWrapper";
 import DashboardWrapper from "../../components/DashboardWrapper";
-import "./styles.css";
 const Reports = () => {
   return (
     <DashboardWrapper>
