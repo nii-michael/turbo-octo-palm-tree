@@ -107,6 +107,7 @@ table {
 .button-wrapper {
   display: flex;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 tr {
