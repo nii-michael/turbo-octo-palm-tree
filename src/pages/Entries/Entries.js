@@ -71,6 +71,10 @@ const Entries = () => {
     ]);
     e.target.reset();
     setDisabled(true);
+    setName("")
+    setRetailer("")
+    setAmount("")
+    setContribution("")
   };
 
   const handleClick = () => {

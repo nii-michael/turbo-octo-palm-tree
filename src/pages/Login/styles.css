@@ -86,3 +86,21 @@ input {
   opacity: 0.6;
   margin-top: 5px;
 }
+
+@media (max-width: 768px) {
+  .dashboard-cards-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-wrapper {
+    display: block;
+  }
+  .dashboard-nav {
+    display: none;
+  }
+  .dashboard-main {
+    height: 100vh
+  }
+}
