@@ -306,3 +306,15 @@ input:disabled{
 .red{
   color: crimson;
 }
+
+
+@media (max-width: 768px) {
+  .custodian-grid {
+   display: grid;
+   grid-template-columns: auto;
+  }
+  .custodian-wrapper{
+    padding: 20px;
+  }
+  
+}
