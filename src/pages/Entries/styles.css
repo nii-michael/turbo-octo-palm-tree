@@ -101,7 +101,7 @@ table {
 
 .button-entries-button:disabled {
   cursor: not-allowed;
-  opacity: 0.7
+  opacity: 0.7;
 }
 
 .button-wrapper {
@@ -109,6 +109,28 @@ table {
   margin-top: 50px;
 }
 
-tr{
+tr {
   border: 10px solid #dededd;
+}
+
+@media (max-width: 768px) {
+  
+  .accounts-wrapper {
+    width: 100vw;
+    padding: 0;
+  }
+  .details, .retailer-interaction{
+    padding-left: 20px;
+  }
+  .details-line, .ri-line{
+    grid-template-columns: 100px 300px 300px 300px;
+  }
+  .details, .retailer-interaction{
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .top-tier-wrapper{
+    display: block;
+  }
 }
