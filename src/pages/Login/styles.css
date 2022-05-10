@@ -95,12 +95,10 @@ input {
 
 @media (max-width: 600px) {
   .dashboard-wrapper {
-    display: block;
+    display: flex;
   }
   .dashboard-nav {
     display: none;
   }
-  .dashboard-main {
-    height: 100vh
-  }
+
 }
