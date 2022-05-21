@@ -1,0 +1,137 @@
+.accounts-wrapper {
+  padding: 40px;
+  width: fit-content;
+    margin: auto;
+}
+
+.accounts-wrapper h3 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #000000;
+}
+
+.top-tier-wrapper {
+  background: #ddd;
+  border: 1px solid #f3f3f3;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+  padding: 20px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.submit-button {
+  background: #111;
+  border: 0;
+  /* width: 100%; */
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  margin: auto;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  color: white;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 300px;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+.details {
+  margin-bottom: 20px;
+}
+
+.details-line {
+  display: grid;
+  /* grid-template-columns: repeat(4, 1fr); */
+  grid-template-columns: 150px 150px 150px 150px;
+  gap: 20px;
+}
+
+.ri-line {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.retailer-interaction {
+  margin-bottom: 60px;
+}
+.detail-header {
+  font-style: normal;
+  font-weight: 700;
+  line-height: 19px;
+  color: #000000;
+  
+}
+.detail-header p{
+  margin: 0;
+}
+.center {
+  text-align: center;
+}
+
+.auto {
+  margin: auto;
+}
+
+.button-entries-button {
+  background: #111;
+  border: 0;
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  margin: auto;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  padding: 15px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.button-entries-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7
+}
+
+.button-wrapper {
+  display: flex;
+  margin-top: 50px;
+}
+
+tr{
+  border: 10px solid #dededd;
+}
+input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin:0;
+}
+
+.validation{
+  color:red;
+  margin:0;
+  padding: 0;
+  display: block;
+  
+}
+
+input{
+  width: 0px;
+}
