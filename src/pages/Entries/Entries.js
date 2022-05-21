@@ -226,7 +226,7 @@ const Entries = () => {
   const  validateNumber= (e)=> {
     console.log(e)
     const pattern = /^[0-9]$/;
-    return pattern.test(e.key )
+    return pattern.test(e.key)
 }
   return (
     <DashboardWrapper>
