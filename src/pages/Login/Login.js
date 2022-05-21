@@ -72,7 +72,7 @@ const Login = () => {
           type="password"
         />
         <br />
-        <button className="login-button">login</button>
+        <button className="login-button">Login</button>
       </form>
     </div>
   );
