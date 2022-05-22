@@ -11,7 +11,11 @@
 input {
   outline: none;
   margin-bottom: 10px;
+<<<<<<< HEAD
   width: 300px;
+=======
+  width: 150px;
+>>>>>>> e1f21a9febbbda461e7d3f55cb7b126b405f79a7
   padding: 10px;
   font-size: 16px;
   font-family: "Courgette", cursive;
@@ -86,6 +90,7 @@ input {
   opacity: 0.6;
   margin-top: 5px;
 }
+<<<<<<< HEAD
 
 @media (max-width: 768px) {
   .dashboard-cards-wrapper {
@@ -103,3 +108,5 @@ input {
   
 
 }
+=======
+>>>>>>> e1f21a9febbbda461e7d3f55cb7b126b405f79a7

@@ -28,134 +28,206 @@ const Entries = () => {
   const [day5, setDay5] = useState("");
   const [day6, setDay6] = useState("");
   const [total, setTotal] = useState("");
+  const [topTierVal, setTopTierVal] = useState({});
   const [loading, setLoading] = useState(false);
   const [prevWeek, setPrevWeek] = useState([]);
   const [newData, setNewData] = useState(false);
 
-  const fullName = useSelector(state => state.user.name);
-  const username = useSelector(state => state.user.username);
-  const region = useSelector(state => state.user.region);
-  const token = useSelector(state => state.user.access_token);
-  const userId = useSelector(state => state.user.userId);
+  const fullName = useSelector((state) => state.user.name);
+  const username = useSelector((state) => state.user.username);
+  const region = useSelector((state) => state.user.region);
+  const token = useSelector((state) => state.user.access_token);
+  const userId = useSelector((state) => state.user.userId);
 
-  useEffect(
-    () => {
-      if (people.length >= 10) {
+  useEffect(() => {
+    if (people.length >= 10) {
+      setDisabled(true);
+    } else {
+      if (
+        name.length < 3 ||
+        retailer.length < 1 ||
+        amount.length < 1 ||
+        contribution.length < 1
+      ) {
         setDisabled(true);
       } else {
-        if (
-          name.length < 3 ||
-          retailer.length < 1 ||
-          amount.length < 1 ||
-          contribution.length < 1
-        ) {
-          setDisabled(true);
-        } else {
-          setDisabled(false);
-        }
+        setDisabled(false);
       }
-    },
-    [name, retailer, contribution, amount, people]
-  );
+    }
+  }, [name, retailer, contribution, amount, people]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
+    console.log("start");
     e.preventDefault();
-    setPeople([
-      ...people,
-      {
-        name,
-        retailer,
-        amount,
-        contribution
+    if (retailer.length != 10) {
+      setTopTierVal({
+        ...topTierVal,
+        retVal: "Please enter a valid Retailer No",
+      });
+    } else {
+      if (contribution < 0 || contribution > 100) {
+        setTopTierVal({
+          retVal: "",
+          conVal: "Please enter a number of range 0-100",
+        });
+      } else {
+        setTopTierVal({
+          retVal: "",
+          conVal: "",
+        });
+
+        setPeople([
+          ...people,
+          {
+            name,
+            retailer,
+            amount,
+            contribution,
+          },
+        ]);
+        e.target.reset();
+        setName("");
+        setRetailer("");
+        setAmount("");
+        setContribution("");
+
+        setDisabled(true);
       }
-    ]);
-    e.target.reset();
-    setDisabled(true);
-    setName("")
-    setRetailer("")
-    setAmount("")
-    setContribution("")
+    }
+  };
+  const validateForm = () => {
+    if (week.length == 0) {
+      return false;
+    }
+    if (deployed.length == 0) {
+      return false;
+    }
+    if (active.length == 0) {
+      return false;
+    }
+    if (avg.length == 0) {
+      return false;
+    }
+    if (call.length == 0) {
+      return false;
+    }
+    if (visitation.length == 0) {
+      return false;
+    }
+    if (day1.length == 0) {
+      return false;
+    }
+    if (day2.length == 0) {
+      return false;
+    }
+    if (day3.length == 0) {
+      return false;
+    }
+    if (day4.length == 0) {
+      return false;
+    }
+    if (day5.length == 0) {
+      return false;
+    }
+    if (day6.length == 0) {
+      return false;
+    }
+    if (total.length == 0) {
+      return false;
+    }
+    if (people.length == 0) {
+      alert("Atleast one toptier person required");
+      return false;
+    }
+    return true;
+  };
+  const handleClick = () => {
+    if (validateForm()) {
+      setLoading(true);
+
+      var data = JSON.stringify({
+        week,
+        deployed,
+        active,
+        inactive,
+        totalTickets,
+        avg,
+        call,
+        visitation,
+        day1,
+        day2,
+        day3,
+        day4,
+        day5,
+        day6,
+        total,
+        retailers: people,
+      });
+
+      var config = {
+        method: "post",
+        url: `${process.env.REACT_APP_BE}/details/add/${userId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      axios(config)
+        .then(function (response) {
+          setWeek("");
+          setDeployed("");
+          setActive("");
+          setInactive("");
+          setTotalTickets("");
+          setAvg("");
+          setDay1("");
+          setDay2("");
+          setDay3("");
+          setDay4("");
+          setDay5("");
+          setDay6("");
+          setTotal("");
+          setCall("");
+          setVisitation("");
+          setPeople([]);
+          setLoading(false);
+          setNewData(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+          alert(error.message);
+        });
+    } else {
+      alert("Please fill in all entries");
+    }
   };
 
-  const handleClick = () => {
-    setLoading(true);
-
-    var data = JSON.stringify({
-      week,
-      deployed,
-      active,
-      inactive,
-      totalTickets,
-      avg,
-      call,
-      visitation,
-      day1,
-      day2,
-      day3,
-      day4,
-      day5,
-      day6,
-      total,
-      retailers: people
-    });
-
+  useEffect(() => {
     var config = {
-      method: "post",
-      url: `${process.env.REACT_APP_BE}/details/add/${userId}`,
+      method: "get",
+      url: `${process.env.REACT_APP_BE}/details/${username}/user/prev`,
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
       },
-      data: data
     };
+
     axios(config)
-      .then(function(response) {
-        setWeek("");
-        setDeployed("");
-        setActive("");
-        setInactive("");
-        setTotalTickets("");
-        setAvg("");
-        setDay1("");
-        setDay2("");
-        setDay3("");
-        setDay4("");
-        setDay5("");
-        setDay6("");
-        setTotal("");
-        setCall("");
-        setVisitation("");
-        setPeople([])
-        setLoading(false);
-        setNewData(true);
+      .then(function (response) {
+        console.log(response.data);
+        setPrevWeek(response.data);
+        setNewData(false);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
-  };
+  }, [newData]);
 
-  useEffect(
-    () => {
-      var config = {
-        method: "get",
-        url: `${process.env.REACT_APP_BE}/details/${username}/user/prev`,
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      };
-
-      axios(config)
-        .then(function(response) {
-          console.log(response.data);
-          setPrevWeek(response.data);
-          setNewData(false)
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    [newData]
-  );
+  const  validateNumber= (e)=> {
+    console.log(e)
+    const pattern = /^[0-9]$/;
+    return pattern.test(e.key)
+}
   return (
     <DashboardWrapper>
       <DashboardMainWrapper name="Entries">
@@ -187,9 +259,10 @@ const Entries = () => {
               <label htmlFor="name">Week: </label>
               <br />
               <input
-                onChange={e => setWeek(e.target.value)}
+                onChange={(e) => setWeek(e.target.value)}
                 value={week}
                 type="week"
+                required
               />
             </div>
           </div>
@@ -209,7 +282,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setDeployed(e.target.value)}
+                onChange={(e) => setDeployed(e.target.value)}
                 value={deployed}
                 className="auth-input auto"
                 type="text"
@@ -225,7 +298,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setActive(e.target.value)}
+                onChange={(e) => setActive(e.target.value)}
                 value={active}
                 className="auth-input auto"
                 type="text"
@@ -241,7 +314,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setInactive(e.target.value)}
+                onChange={(e) => setInactive(e.target.value)}
                 value={inactive}
                 className="auth-input auto"
                 type="text"
@@ -257,7 +330,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setTotalTickets(e.target.value)}
+                onChange={(e) => setTotalTickets(e.target.value)}
                 value={totalTickets}
                 className="auth-input auto"
                 type="text"
@@ -273,7 +346,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setAvg(e.target.value)}
+                onChange={(e) => setAvg(e.target.value)}
                 value={avg}
                 className="auth-input auto"
                 type="text"
@@ -287,7 +360,7 @@ const Entries = () => {
                 <label htmlFor="name">Name</label>
                 <br />
                 <input
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   className="auth-input auto"
                   type="text"
                   placeholder="Enter Full Name"
@@ -297,19 +370,22 @@ const Entries = () => {
                 <label htmlFor="name">Retailer #</label>
                 <br />
                 <input
-                  onChange={e => setRetailer(e.target.value)}
+                  onChange={(e) => setRetailer(e.target.value)}
+                  maxLength="8"
                   className="auth-input auto"
-                  type="text"
+                  type="tel"
+                  onKeyPress={(e)=>validateNumber(e)}
                   placeholder="Enter Retailer Number"
                 />
+                <span className="validation">{topTierVal.retVal}</span>
               </div>
               <div className="custom-input-wrapper">
                 <label htmlFor="name">Amount</label>
                 <br />
                 <input
-                  onChange={e => setAmount(e.target.value)}
+                  onChange={(e) => setAmount(e.target.value)}
                   className="auth-input auto"
-                  type="text"
+                  type="number"
                   placeholder="Enter Amount"
                 />
               </div>
@@ -317,11 +393,13 @@ const Entries = () => {
                 <label htmlFor="name">% Contribution</label>
                 <br />
                 <input
-                  onChange={e => setContribution(e.target.value)}
+                  onChange={(e) => setContribution(e.target.value)}
                   className="auth-input auto"
-                  type="text"
+                  type="number"
+                  size="3"
                   placeholder="Enter Contribution"
                 />
+                <span className="validation">{topTierVal.conVal}</span>
               </div>
               <div className="buttons">
                 <button
@@ -350,18 +428,10 @@ const Entries = () => {
                   {people.map((ele, i) => {
                     return (
                       <tr key={i}>
-                        <td>
-                          {ele.name}
-                        </td>
-                        <td>
-                          {ele.retailer}
-                        </td>
-                        <td>
-                          {ele.amount}
-                        </td>
-                        <td>
-                          {ele.contribution}
-                        </td>
+                        <td>{ele.name}</td>
+                        <td>{ele.retailer}</td>
+                        <td>{ele.amount}</td>
+                        <td>{ele.contribution}</td>
                       </tr>
                     );
                   })}
@@ -389,7 +459,7 @@ const Entries = () => {
               />
               <input
                 value={call}
-                onChange={e => setCall(e.target.value)}
+                onChange={(e) => setCall(e.target.value)}
                 className="auth-input auto"
                 type="text"
               />
@@ -404,7 +474,7 @@ const Entries = () => {
               />
               <input
                 value={visitation}
-                onChange={e => setVisitation(e.target.value)}
+                onChange={(e) => setVisitation(e.target.value)}
                 className="auth-input auto"
                 type="text"
               />
@@ -426,7 +496,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setDay1(e.target.value)}
+                onChange={(e) => setDay1(e.target.value)}
                 value={day1}
                 className="auth-input auto"
                 type="text"
@@ -442,7 +512,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setDay2(e.target.value)}
+                onChange={(e) => setDay2(e.target.value)}
                 value={day2}
                 className="auth-input auto"
                 type="text"
@@ -458,7 +528,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setDay3(e.target.value)}
+                onChange={(e) => setDay3(e.target.value)}
                 value={day3}
                 className="auth-input auto"
                 type="text"
@@ -474,7 +544,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setDay4(e.target.value)}
+                onChange={(e) => setDay4(e.target.value)}
                 value={day4}
                 className="auth-input auto"
                 type="text"
@@ -490,7 +560,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setDay5(e.target.value)}
+                onChange={(e) => setDay5(e.target.value)}
                 value={day5}
                 className="auth-input auto"
                 type="text"
@@ -506,7 +576,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setDay6(e.target.value)}
+                onChange={(e) => setDay6(e.target.value)}
                 value={day6}
                 className="auth-input auto"
                 type="text"
@@ -522,7 +592,7 @@ const Entries = () => {
                 type="text"
               />
               <input
-                onChange={e => setTotal(e.target.value)}
+                onChange={(e) => setTotal(e.target.value)}
                 value={total}
                 className="auth-input auto"
                 type="text"
@@ -532,13 +602,15 @@ const Entries = () => {
           </div>
           <div className="button-wrapper">
             <button
-              disabled= {loading}
+              disabled={loading}
               onClick={handleClick}
               className="button-entries-button"
             >
-              {loading
-                ? <PulseSpinner size={30} color="#fff" loading={loading} />
-                : "Submit Entries"}
+              {loading ? (
+                <PulseSpinner size={30} color="#fff" loading={loading} />
+              ) : (
+                "Submit Entries"
+              )}
             </button>
           </div>
         </div>

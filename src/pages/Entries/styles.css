@@ -1,5 +1,7 @@
 .accounts-wrapper {
   padding: 40px;
+  width: fit-content;
+    margin: auto;
 }
 
 .accounts-wrapper h3 {
@@ -55,7 +57,8 @@ table {
 
 .details-line {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* grid-template-columns: repeat(4, 1fr); */
+  grid-template-columns: 150px 150px 150px 150px;
   gap: 20px;
 }
 
@@ -72,6 +75,10 @@ table {
   font-weight: 700;
   line-height: 19px;
   color: #000000;
+  
+}
+.detail-header p{
+  margin: 0;
 }
 .center {
   text-align: center;
@@ -101,37 +108,30 @@ table {
 
 .button-entries-button:disabled {
   cursor: not-allowed;
-  opacity: 0.7;
+  opacity: 0.7
 }
 
 .button-wrapper {
   display: flex;
   margin-top: 50px;
-  margin-bottom: 50px;
 }
 
-tr {
+tr{
   border: 10px solid #dededd;
 }
+input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin:0;
+}
 
-@media (max-width: 768px) {
+.validation{
+  color:red;
+  margin:0;
+  padding: 0;
+  display: block;
   
-  .accounts-wrapper {
-    width: 100vw;
-    padding: 0;
-  }
-  .details, .retailer-interaction{
-    padding-left: 20px;
-  }
-  .details-line, .ri-line{
-    grid-template-columns: 100px 300px 300px 300px;
-  }
-  .details, .retailer-interaction{
-    width: 100%;
-    overflow-x: scroll;
-  }
+}
 
-  .top-tier-wrapper{
-    display: block;
-  }
+input{
+  width: 0px;
 }
