@@ -26,6 +26,16 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
+.top-tier-wrapper-full{
+  background: #ddd;
+  border: 1px solid #f3f3f3;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 .submit-button {
   background: #111;
   border: 0;

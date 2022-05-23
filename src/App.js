@@ -5,6 +5,7 @@ import Entries from "./pages/Entries/Entries";
 import Login from "./pages/Login/Login";
 import Reports from "./pages/Reports/Reports";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SingleReport from "./pages/Reports/SingleReport";
 
 function App() {
   return (
@@ -35,6 +36,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Reports />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/dashboard/reports/:week"
+          element={
+            <ProtectedRoute>
+              <SingleReport />
             </ProtectedRoute>
           }
         />

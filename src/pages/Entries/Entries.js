@@ -96,46 +96,46 @@ const Entries = () => {
     }
   };
   const validateForm = () => {
-    if (week.length == 0) {
+    if (week.length === 0) {
       return false;
     }
-    if (deployed.length == 0) {
+    if (deployed.length === 0) {
       return false;
     }
-    if (active.length == 0) {
+    if (active.length === 0) {
       return false;
     }
-    if (avg.length == 0) {
+    if (avg.length === 0) {
       return false;
     }
-    if (call.length == 0) {
+    if (call.length === 0) {
       return false;
     }
-    if (visitation.length == 0) {
+    if (visitation.length === 0) {
       return false;
     }
-    if (day1.length == 0) {
+    if (day1.length === 0) {
       return false;
     }
-    if (day2.length == 0) {
+    if (day2.length === 0) {
       return false;
     }
-    if (day3.length == 0) {
+    if (day3.length === 0) {
       return false;
     }
-    if (day4.length == 0) {
+    if (day4.length === 0) {
       return false;
     }
-    if (day5.length == 0) {
+    if (day5.length === 0) {
       return false;
     }
-    if (day6.length == 0) {
+    if (day6.length === 0) {
       return false;
     }
-    if (total.length == 0) {
+    if (total.length === 0) {
       return false;
     }
-    if (people.length == 0) {
+    if (people.length === 0) {
       alert("Atleast one toptier person required");
       return false;
     }
