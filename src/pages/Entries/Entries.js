@@ -59,7 +59,7 @@ const Entries = () => {
   const handleSubmit = (e) => {
     console.log("start");
     e.preventDefault();
-    if (retailer.length != 10) {
+    if (retailer.length != 8) {
       setTopTierVal({
         ...topTierVal,
         retVal: "Please enter a valid Retailer No",
